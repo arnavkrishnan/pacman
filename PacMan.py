@@ -3,15 +3,24 @@ import time
 
 rows = 11
 columns = 20
+bx = 100
+by = 100
 grid_size = 50
 grid_x = 0
 grid_y = 0
 screen = pygame.display.set_mode([columns*grid_size,rows*grid_size])
 screen.fill((0,0,0))
-pygame.display.set_caption('my first game')
 pygame.display.update()
 
 pacman = pygame.image.load('pacman.png')
+blinky = pygame.image.load('pacmanghost.png')
+blinky = pygame.transform.scale(blinky, (50, 50))
+
+def draw_ghost(ghost, gx, gy):
+    rect = ghost.get_rect()
+    rect.center = (gx, gy)
+    screen.blit(ghost, rect)
+
 size = 50
 pacman = pygame.transform.scale(pacman, (size, size))
 
@@ -138,5 +147,6 @@ while running:
     eat_pellets()
     draw_map()
     draw_player(pacman)
+    draw_ghost(blinky, bx, by)
     pygame.display.update()
     pygame.time.Clock().tick(30)

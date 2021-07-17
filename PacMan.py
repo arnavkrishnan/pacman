@@ -85,6 +85,7 @@ def draw_ghost(ghost, g_x, g_y):
 	rect.center = (g_x, g_y)
 	screen.blit(ghost, rect)
 
+
 def eat_pellets():
 	global pellet_count
 	global power_up
@@ -125,6 +126,7 @@ def move_ghost(ghost, cx, cy, dx, dy):
 
 d_x = [0, -1, 0, 1]
 d_y = [-1, 0, 1, 0]
+
 def next_goal_chase(c_x, c_y, c_d, p_x, p_y):
 	# select the next point to move to depending on where Pacman is
 	# ghost can not reverse travel direction
@@ -332,6 +334,8 @@ while running:
 		next_pos = next_goal_chase(n_x, n_y, n_d, t_x, t_y)
 		if next_pos != False:
 			gn_x, gn_y, n_d, dn_x, dn_y = next_pos
+
+	ix, iy = find_inky_target(p_x, p_y, p_a)
 
 	draw_ghost(blinkly, b_x, b_y)
 	draw_ghost(pinky, n_x, n_y)

@@ -120,8 +120,8 @@ def check_collision(): # check pacman's collision with walls - pacman is at p_x,
 	return False
 
 def move_ghost(ghost, cx, cy, dx, dy):
-	cx += 2*dx
-	cy += 2*dy
+	cx += g_speed*dx
+	cy += g_speed*dy
 	return (cx, cy)
 
 d_x = [0, -1, 0, 1]
@@ -168,17 +168,8 @@ def next_goal_chase(c_x, c_y, c_d, p_x, p_y):
 		return False
 
 def find_pinky_target(p_x, p_y, p_a):
-	#find two grid ahead of pacman
-	t_x_g = p_x//grid_size
-	t_y_g = p_y//grid_size
-	if p_a == 0: #pacman heading right
-		t_x_g += 4
-	if p_a == 180:
-		t_x_g -= 4
-	if p_a == 90: #pacman heading up
-		t_y_g -= 4
-	if p_a == 270:
-		t_y_g += 4
+	t_x_g = random.randint(1, 19)
+	t_y_g = random.randint(1, 11)
 	return t_x_g, t_y_g
 
 def find_inky_target(p_x, p_y, p_a):
@@ -258,7 +249,7 @@ di_y = 0
 inky_in_house = True
 
 p_speed = 3
-g_speed = 2
+g_speed = 5
 
 pellet_count = 0
 power_up = 0
@@ -337,11 +328,11 @@ while running:
 
 	ix, iy = find_inky_target(p_x, p_y, p_a)
 
-	draw_ghost(blinkly, b_x, b_y)
+	#draw_ghost(blinkly, b_x, b_y)
 	draw_ghost(pinky, n_x, n_y)
 	draw_ghost(inky, i_x, i_y)
 
-	if same_grid(p_x, p_y, b_x, b_y) or same_grid(p_x, p_y, n_x, n_y):
+	if same_grid(p_x, p_y, n_x, n_y):
 		pygame.time.wait(1000)
 		p_x = 9*grid_size+grid_size//2
 		p_y = 7*grid_size+grid_size//2

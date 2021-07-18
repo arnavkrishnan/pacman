@@ -336,10 +336,12 @@ while running:
 			gn_x, gn_y, n_d, dn_x, dn_y = next_pos
 
 	ix, iy = find_inky_target(p_x, p_y, p_a)
+	ix, iy = move_ghost(inky, ix, iy, di_x, di_y)
+	print(ix, iy)
 
 	draw_ghost(blinkly, b_x, b_y)
 	draw_ghost(pinky, n_x, n_y)
-	draw_ghost(inky, i_x, i_y)
+	draw_ghost(inky, i_x, i_y
 
 	if same_grid(p_x, p_y, b_x, b_y) or same_grid(p_x, p_y, n_x, n_y):
 		pygame.time.wait(1000)

@@ -10,13 +10,13 @@ screen_height = (rows+1)*grid_size
 screen = pygame.display.set_mode([screen_width, screen_height]) # size of screen
 screen.fill('black')
 size = grid_size-6
-pacman0 = pygame.image.load('pacman.png')
+pacman0 = pygame.image.load('images/pacman1.png')
 pacman0 = pygame.transform.scale(pacman0, (size, size))
-blinkly = pygame.image.load('blinkly.png')
+blinkly = pygame.image.load('images/blinkly.png')
 blinkly = pygame.transform.scale(blinkly, (size, size))
-pinky = pygame.image.load('pinky.png')
+pinky = pygame.image.load('images/pinky.png')
 pinky = pygame.transform.scale(pinky, (size, size))
-inky = pygame.image.load('inky.png')
+inky = pygame.image.load('images/inky.png')
 inky = pygame.transform.scale(inky, (size, size))
 
 map =  [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -85,7 +85,6 @@ def draw_ghost(ghost, g_x, g_y):
 	rect.center = (g_x, g_y)
 	screen.blit(ghost, rect)
 
-
 def eat_pellets():
 	global pellet_count
 	global power_up
@@ -115,6 +114,7 @@ def collide_circle_rect(cx, cy, r, x1, x2, y1, y2):
 
 def check_collision(): # check pacman's collision with walls - pacman is at p_x, py
 	for k in range(len(wall_rects)):
+		print p_x, p_y, size//2, wall_rects[k][0], wall_rects[k][2], wall_rects[k][1], wall_rects[k][3]
 		if collide_circle_rect(p_x, p_y, size//2, wall_rects[k][0], wall_rects[k][2], wall_rects[k][1], wall_rects[k][3]):
 			return True
 	return False
@@ -126,7 +126,6 @@ def move_ghost(ghost, cx, cy, dx, dy):
 
 d_x = [0, -1, 0, 1]
 d_y = [-1, 0, 1, 0]
-
 def next_goal_chase(c_x, c_y, c_d, p_x, p_y):
 	# select the next point to move to depending on where Pacman is
 	# ghost can not reverse travel direction
@@ -179,6 +178,7 @@ def find_pinky_target(p_x, p_y, p_a):
 		t_y_g -= 4
 	if p_a == 270:
 		t_y_g += 4
+	print "pinky target", t_x_g, t_y_g
 	return t_x_g, t_y_g
 
 def find_inky_target(p_x, p_y, p_a):
@@ -197,8 +197,10 @@ def find_inky_target(p_x, p_y, p_a):
 	b_y_g = b_y//grid_size
 	del_x = t_x_g - b_x_g
 	del_y = t_y_g - b_y_g
+	print del_x, del_y
 	t_x_g += del_x
 	t_y_g += del_y
+	print "inky target", t_x_g, t_y_g
 	return t_x_g, t_y_g
 
 def same_grid(p_x, py, g_x, g_y):
@@ -311,6 +313,7 @@ while running:
 		next_pos = next_goal_chase(b_x, b_y, b_d, p_x, p_y)
 		if next_pos != False:
 			gb_x, gb_y, b_d, db_x, db_y = next_pos
+		print "next blinkly goal", gb_x, gb_y
 
 	# pinky
 	if pinky_in_house:
@@ -334,14 +337,11 @@ while running:
 		next_pos = next_goal_chase(n_x, n_y, n_d, t_x, t_y)
 		if next_pos != False:
 			gn_x, gn_y, n_d, dn_x, dn_y = next_pos
-
-	ix, iy = find_inky_target(p_x, p_y, p_a)
-	ix, iy = move_ghost(inky, ix, iy, di_x, di_y)
-	print(ix, iy)
+		print "next pinky goal", gn_x, gn_y
 
 	draw_ghost(blinkly, b_x, b_y)
 	draw_ghost(pinky, n_x, n_y)
-	draw_ghost(inky, i_x, i_y
+	draw_ghost(inky, i_x, i_y)
 
 	if same_grid(p_x, p_y, b_x, b_y) or same_grid(p_x, p_y, n_x, n_y):
 		pygame.time.wait(1000)

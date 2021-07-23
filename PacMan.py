@@ -338,7 +338,7 @@ while running:
 	draw_ghost(pinky, n_x, n_y)
 	draw_ghost(inky, i_x, i_y)
 
-	if same_grid(p_x, p_y, b_x, b_y) or same_grid(p_x, p_y, n_x, n_y):
+	if same_grid(p_x, p_y, b_x, b_y) or same_grid(p_x, p_y, n_x, n_y) or same_grid(p_x, p_y, i_x, i_y):
 		pygame.time.wait(1000)
 		p_x = 9*grid_size+grid_size//2
 		p_y = 7*grid_size+grid_size//2

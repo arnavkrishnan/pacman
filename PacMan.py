@@ -334,6 +334,11 @@ while running:
 			gn_x, gn_y, n_d, dn_x, dn_y = next_pos
 
 	i_x, i_y = find_inky_target(p_x, p_y, p_a)
+	i_x = i_x * grid_size
+	i_y = i_y * grid_size
+	#where_inky = move_ghost(inky, i_x, i_y, di_x, di_y)
+	#i_x = where_inky[0]
+	#i_y = where_inky[1]
 	draw_ghost(blinkly, b_x, b_y)
 	draw_ghost(pinky, n_x, n_y)
 	draw_ghost(inky, i_x, i_y)
